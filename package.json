@@ -1,7 +1,7 @@
 {
-  "name": "@mnn-o/node-red-contrib-amqp",
+  "name": "@mnn-o/node-red-rmq",
   "license": "ISC",
-  "version": "1.5.1",
+  "version": "1.0.0",
   "description": "RabbitMQ nodes for node-red",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,8 @@
   "keywords": [
     "node-red",
     "amqp",
-    "rabbitmq"
+    "rabbitmq",
+    "quorum"
   ],
   "node-red": {
     "nodes": {
@@ -41,9 +42,10 @@
     "Amo DelBello <adelbello@meowwolf.com>",
     "Stormpass <stormpass@qq.com>",
     "Corentin <co.pasquier@gmail.com>",
-    "Breshinas <9035788472@mail.ru>"
+    "Breshinas <9035788472@mail.ru>",
+    "MNN-O"
   ],
-  "bugs": "https://github.com/breshinas/node-red-contrib-amqp/issues",
+  "bugs": "https://github.com/MNN-O/node-red-rabbitmq/issues",
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^0.1.3",
     "@types/amqplib": "^0.8.1",
