@@ -10,7 +10,7 @@ The nodes are adapted to work with RabbitMQ and their newer Quorom type queues. 
 Install via the Palette Manager or from within your node-red directory (typically `~/.node-red`) run:
 
 ```
-npm i TODO
+npm i @mnn-o/node-red-rabbitmq
 ```
 
 ## Usage
