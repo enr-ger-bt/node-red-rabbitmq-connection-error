@@ -1,7 +1,7 @@
 {
   "name": "@mnn-o/node-red-rabbitmq",
   "license": "ISC",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "RabbitMQ nodes for node-red",
   "main": "index.js",
   "scripts": {
