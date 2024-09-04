@@ -20,6 +20,7 @@ module.exports = function (RED) {
         const configAmqp = config;
         const amqp = new Amqp_1.default(RED, this, configAmqp);
         const reconnectOnError = configAmqp.reconnectOnError;
+        const reconnectTimeoutValue = configAmqp.reconnectTimeoutValue;
         // handle input event;
         const inputListener = async (msg, _, done) => {
             var _a;
@@ -53,11 +54,23 @@ module.exports = function (RED) {
                     }
                     break;
             }
-            if (!!((_a = properties === null || properties === void 0 ? void 0 : properties.headers) === null || _a === void 0 ? void 0 : _a.doNotStringifyPayload)) {
-                amqp.publish(payload, properties);
+            try {
+                const conn = await amqp.connect();
+                console.log(conn);
+                if (conn) {
+                    if (!!((_a = properties === null || properties === void 0 ? void 0 : properties.headers) === null || _a === void 0 ? void 0 : _a.doNotStringifyPayload)) {
+                        await amqp.publish(payload, properties);
+                    }
+                    else {
+                        await amqp.publish(JSON.stringify(payload), properties);
+                    }
+                }
+                else {
+                    throw ("Connection not present, impossible to publish.");
+                }
             }
-            else {
-                amqp.publish(JSON.stringify(payload), properties);
+            catch (e) {
+                this.error(e, msg);
             }
             done && done();
         };
@@ -110,7 +123,7 @@ module.exports = function (RED) {
                     catch (e) {
                         reconnect();
                     }
-                }, 2000);
+                }, reconnectTimeoutValue);
             };
             try {
                 const connection = await amqp.connect();

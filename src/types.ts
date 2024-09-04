@@ -18,6 +18,7 @@ export interface AmqpConfig {
   broker: string
   prefetch: number
   reconnectOnError?: boolean
+  reconnectTimeoutValue?: number
   noAck: boolean
   exchange: {
     name: string
@@ -43,6 +44,7 @@ export interface AmqpInNodeDefaults {
   broker?: any
   prefetch?: any
   reconnectOnError?: boolean
+  reconnectTimeoutValue?: number
   noAck?: any
   exchangeName?: any
   exchangeType?: any
@@ -66,6 +68,7 @@ export interface AmqpOutNodeDefaults {
   amqpProperties?: any
   outputs?: any
   rpcTimeoutMilliseconds?: any
+  reconnectTimeoutValue?: number
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

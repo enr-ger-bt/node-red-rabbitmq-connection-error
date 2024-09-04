@@ -61,6 +61,12 @@ export default class Amqp {
     }
   }
 
+  
+  public get getConnection() : Connection {
+    return this.connection
+  }
+  
+
   public async connect(): Promise<Connection> {
     const { broker } = this.config
 

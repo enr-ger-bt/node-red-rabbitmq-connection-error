@@ -34,6 +34,9 @@ class Amqp {
             rpcTimeout: config.rpcTimeoutMilliseconds,
         };
     }
+    get getConnection() {
+        return this.connection;
+    }
     async connect() {
         const { broker } = this.config;
         // wtf happened to the types?

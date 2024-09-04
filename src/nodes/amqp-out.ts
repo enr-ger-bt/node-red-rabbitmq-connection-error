@@ -33,6 +33,7 @@ module.exports = function (RED: NodeRedApp): void {
 
     const reconnectOnError = configAmqp.reconnectOnError;
 
+    const reconnectTimeoutValue = configAmqp.reconnectTimeoutValue
 
     // handle input event;
     const inputListener = async (msg, _, done) => {
@@ -88,10 +89,20 @@ module.exports = function (RED: NodeRedApp): void {
           break
       }
 
-      if (!!properties?.headers?.doNotStringifyPayload) {
-        amqp.publish(payload, properties)
-      } else {
-        amqp.publish(JSON.stringify(payload), properties)
+      try {
+        const conn = await amqp.connect()
+        console.log(conn)
+        if (conn) {
+          if (!!properties?.headers?.doNotStringifyPayload) {
+            await amqp.publish(payload, properties)
+          } else {
+            await amqp.publish(JSON.stringify(payload), properties)
+          }
+        } else {
+          throw("Connection not present, impossible to publish.")
+        }
+      } catch (e) {
+        this.error(e, msg)
       }
 
       done && done()
@@ -147,7 +158,7 @@ module.exports = function (RED: NodeRedApp): void {
           } catch (e) {
             reconnect()
           }
-        }, 2000)
+        }, reconnectTimeoutValue)
       }
   
       try {
